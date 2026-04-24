@@ -2,13 +2,93 @@ void main() {
     Scanner scanner = new Scanner(System.in);
 
     // Main Methods here
-    runBasicExercises(scanner);
-    runMixedDataTypes(scanner);
-    runOperatorExercises();
-    runIfStatementsExercises(scanner);
-    runMethodExercises();
+//    runBasicExercises(scanner);
+//    runMixedDataTypes(scanner);
+//    runOperatorExercises();
+//    runIfStatementsExercises(scanner);
+//    runMethodExercises();
+    runArrayExercises();
 
     scanner.close();
+}
+
+private void runArrayExercises() {
+    int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    for(int i=0; i<numbers.length; i++){
+        System.out.println(numbers[i]);
+    }
+
+    System.out.println("===========================================");
+    String[] names = {"Name 1", "Name 2", "Name 3", "Name 4", "Name 5"};
+    for(String name: names){
+        System.out.println(name);
+    }
+
+    System.out.println("===========================================");
+    int[] evenNumbers = {2, 4, 6, 8};
+    for(int i=0; i<evenNumbers.length; i++){
+        int currNumber = evenNumbers[i];
+        int quadNumber = currNumber * currNumber;
+        System.out.printf("The quadrat number of %s is %s\n", currNumber, quadNumber);
+    }
+
+    System.out.println("===========================================");
+    for(int i=0; i<numbers.length; i++){
+        int currNumber = numbers[i];
+        boolean isEven = currNumber % 2 == 0;
+        if(isEven) {
+            System.out.println(currNumber + " is even");
+            continue;
+        }
+        System.out.println(currNumber);
+    }
+
+    System.out.println("===========================================");
+    for(int currNumber: numbers) {
+        boolean isEven = currNumber % 2 == 0;
+        if(isEven) {
+            System.out.println(currNumber + " is even");
+            continue;
+        }
+        System.out.println(currNumber);
+    }
+
+    System.out.println("===========================================");
+    int totalAllNumbers = 0;
+    for(int currNumber: numbers) {
+        totalAllNumbers +=currNumber;
+    }
+    System.out.println("The total number: " + totalAllNumbers);
+
+    System.out.println("===========================================");
+    String[] cities = {"Jakarta", "Berlin", "Paris", "Abu Dhabi", "Beijing"};
+    System.out.println("List of cities:");
+    for(int i = 0; i<cities.length; i++) {
+        String currCity = cities[i];
+        System.out.printf("%s. %s\n", i, currCity);
+    }
+
+    System.out.println("===========================================");
+    int[] numbs = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    for (int i=0; i<numbs.length; i++) {
+        int currNumber = numbs[i];
+        numbs[i] = currNumber*2;
+        System.out.println("Doubled Number: " + numbs[i]);
+    }
+
+    System.out.println("===========================================");
+    for (int i=0; i<cities.length; i++) {
+        System.out.println(names[i] + " " + cities[i]);
+    }
+
+    System.out.println("===========================================");
+    int[] examNotes = {85, 70, 95, 60};
+    int totalNote = 0;
+    for (int i=0; i<examNotes.length; i++) {
+        int currExamNote = examNotes[i];
+        totalNote += currExamNote;
+    }
+    System.out.println("The average is: " + (totalNote / examNotes.length));
 }
 
 // ================= BASIC =================
