@@ -5,10 +5,10 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        //runBasicExercises(scanner);
-        //runMixedDataTypes(scanner);
-        //runOperatorExercises();
-        //runIfStatementsExercises(scanner);
+        runBasicExercises(scanner);
+        runMixedDataTypes(scanner);
+        runOperatorExercises();
+        runIfStatementsExercises(scanner);
         runMethodExercises();
 
         scanner.close();
