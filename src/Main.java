@@ -6,10 +6,10 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         // Main Methods here
-        //runBasicExercises(scanner);
-        //runMixedDataTypes(scanner);
-        //runOperatorExercises();
-        //runIfStatementsExercises(scanner);
+        runBasicExercises(scanner);
+        runMixedDataTypes(scanner);
+        runOperatorExercises();
+        runIfStatementsExercises(scanner);
         runMethodExercises();
 
         scanner.close();
