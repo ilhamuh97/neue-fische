@@ -116,7 +116,7 @@ class MainTest {
             "MaDAm, true",
             "1221, true",
     })
-    void isPalindrome_shouldReturnTrue_whenCalledWithPalindromeText(String text, boolean expected) {
+    void isPalindrome_shouldReturnTrue_whenCalledWithPalindromeText(String text) {
         assertTrue(Main.isPalindrome(text));
     }
 
