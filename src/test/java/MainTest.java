@@ -122,10 +122,10 @@ class MainTest {
 
     @ParameterizedTest
     @CsvSource({
-            "Java, false",
-            "Hallo, false",
+            "Java",
+            "Hallo",
     })
-    void isPalindrome_shouldReturnFalse_whenCalledWithNonPalindromeText(String text, boolean expected) {
+    void isPalindrome_shouldReturnFalse_whenCalledWithNonPalindromeText(String text) {
         assertFalse(Main.isPalindrome(text));
     }
 
