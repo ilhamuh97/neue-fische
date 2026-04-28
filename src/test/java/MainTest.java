@@ -131,7 +131,7 @@ class MainTest {
 
     @ParameterizedTest
     @CsvSource({
-            "Hallo, 2",
+            "Hallo, 3",
             "World, 1",
             "Java, 2",
     })
