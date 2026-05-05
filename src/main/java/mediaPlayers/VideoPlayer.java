@@ -1,3 +1,8 @@
+package mediaPlayers;
+
+import interfaces.MediaLibrary;
+import interfaces.Playable;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -24,6 +29,13 @@ public class VideoPlayer implements Playable, MediaLibrary {
     @Override
     public void remove(String item) {
         videos.remove(item);
+    }
+
+    @Override
+    public void showList() {
+        for(String item: videos) {
+            System.out.println(item);
+        }
     }
 
     @Override
