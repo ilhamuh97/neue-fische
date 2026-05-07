@@ -2,6 +2,7 @@ package pharmacy;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Pharmacy {
@@ -41,5 +42,24 @@ public class Pharmacy {
         for (Medication medication : medications.values()) {
             System.out.printf("%s, %s Euro, %s\n", medication.getName(), medication.getPrice(), medication.getAvailability());
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Pharmacy pharmacy = (Pharmacy) o;
+        return Objects.equals(medications, pharmacy.medications);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(medications);
+    }
+
+    @Override
+    public String toString() {
+        return "Pharmacy{" +
+                "medications=" + medications +
+                '}';
     }
 }
