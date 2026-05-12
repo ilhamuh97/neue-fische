@@ -25,4 +25,11 @@ public class PersonRepository {
     public Optional<Person> getPersonById(String ID) {
         return Optional.ofNullable(people.get(ID)); //Optional.of doesn't work
     }
+
+    // Bonus
+    public Optional<Person> getPersonByName(String name) {
+        return people.values().stream()
+                .filter(person -> person.name().equals(name))
+                .findFirst();
+    }
 }

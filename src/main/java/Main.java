@@ -17,6 +17,11 @@ public class Main {
                         () -> System.out.println("Person not found!")
                 );
 
+        // Bonus
+        personRepository.getPersonByName("Person D") // Name "Person D" doesn't exist
+                .ifPresentOrElse(
+                        System.out::println,
+                        () -> System.out.println("Person not found!")
+                );
     }
-
 }
