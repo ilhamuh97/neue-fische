@@ -1,8 +1,8 @@
 import records.Student;
 
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -39,7 +39,8 @@ public class Main {
                             studentData[2],
                             Integer.parseInt(studentData[3])
                     ))
-                    .distinct() // Filter by comparing all properties values
+                    .distinct()
+                    .sorted(Comparator.comparingInt(a -> Integer.parseInt(a.ID())))
                     .toList();
 
             System.out.println(students);
