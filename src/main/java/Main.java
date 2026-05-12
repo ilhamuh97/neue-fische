@@ -39,6 +39,7 @@ public class Main {
                             studentData[2],
                             Integer.parseInt(studentData[3])
                     ))
+                    .distinct() // Filter by comparing all properties values
                     .toList();
 
             System.out.println(students);
