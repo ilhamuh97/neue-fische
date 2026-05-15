@@ -23,14 +23,11 @@ class StudentServiceTest {
 
     @Test
     void shouldThrowExceptionWhenStudentDoesNotExist() {
-
         // GIVEN
         StudentService service = new StudentService(List.of());
 
-        // WHEN + THEN
-        assertThrows(
-                StudentNotFoundException.class,
-                () -> service.findById("999")
+        // WHEN & THEN
+        assertThrows(StudentNotFoundException.class, () -> service.findById("999")
         );
     }
 }
