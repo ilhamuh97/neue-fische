@@ -1,12 +1,12 @@
 import lombok.Builder;
 import lombok.Data;
-import lombok.AllArgsConstructor;
+import lombok.With;
 
-@Data // Erzeugt Getter, Setter, equals(), hashCode() und toString()
+@Data
 @Builder
 public class Student {
-    private final String ID;
+    private String ID;
     private String name;
     private String address;
-    private String grade;
+    @With private double grade;
 }
