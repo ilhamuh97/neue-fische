@@ -6,6 +6,12 @@ public class Main {
         Student s2 = new Student("2s", "Student Two", "Address. 2", "VI");
         Student s3 = new Student("3s", "Student Three", "Address. 3", "VII");
         Student s4 = new Student("4s", "Student Four", "Address. 4", "VII");
+        Student s5 = Student.builder()
+                .ID("5s")
+                .name("Student Five")
+                .address("Address. 5")
+                .grade("VIII")
+                .build();
 
         Teacher t1 = new Teacher("1t", "Teacher One", "Subject One");
         Teacher t2 = new Teacher("2t", "Teacher Two", "Subject Two");
@@ -15,11 +21,14 @@ public class Main {
 
         c1.getStudent().put(s1.getName(), s1);
         c1.getStudent().put(s2.getName(), s2);
+        System.out.println("C1: " + c1);
 
         c2.getStudent().put(s3.getName(), s3);
         c2.getStudent().put(s4.getName(), s4);
+        c2.getStudent().put(s5.getName(), s5);
 
-        System.out.println(c1);
-        System.out.println(c2);
+        System.out.println("OLD C2: " + c2);
+        c2 = c2.withName("New Course Two");
+        System.out.println("NEW C2: " + c2);
     }
 }

@@ -1,8 +1,9 @@
+import lombok.Builder;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 
 @Data // Erzeugt Getter, Setter, equals(), hashCode() und toString()
-@AllArgsConstructor // Erzeugt einen Konstruktor mit allen Attributen
+@Builder
 public class Student {
     private final String ID;
     private String name;
