@@ -1,10 +1,25 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 public class Main {
 
     public static void main(String[] args) {
+        // Playground
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd.MM.yyyy");
+        String formattedDate = LocalDateTime.now().format(formatter);
+        System.out.println(formattedDate);
+        System.out.println();
+
+        String time = "Monday, 18.05.2026";
+        String timeError = "Monday, 12.05.2026"; // Error because not Monday
+        LocalDate localDateTime2 = LocalDate.parse(time, formatter);
+        System.out.println(localDateTime2);
+        System.out.println(localDateTime2);
+        System.out.println();
+
+        // Exercise
         LocalDateTime jetzt = LocalDateTime.now();
         System.out.println("Aktuelles Datum und Uhrzeit:");
         System.out.println(jetzt);
