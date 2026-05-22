@@ -23,17 +23,28 @@ public class AsterixCharacterService {
         this.asterixCharacterRepository = asterixCharacterRepository;
     }
 
-    public ResponseEntity<List<AsterixCharacterRecord>> getCharacters(String name) {
-        if(name == null) {
-            return ResponseEntity
-                    .ok()
-                    .body(asterixCharacterRepository.findAll());
+    public ResponseEntity<List<AsterixCharacterRecord>> getCharacters(String name, Integer maxAge) {
+        if (name == null && maxAge == null) {
+            return ResponseEntity.ok(asterixCharacterRepository.findAll());
         }
 
-        return ResponseEntity
-                .ok()
-                .body(asterixCharacterRepository.findByNameLike(name));
+        if (name == null) {
+            return ResponseEntity.ok(
+                    asterixCharacterRepository.findByAgeIsLessThanEqual(maxAge)
+            );
+        }
+
+        if (maxAge == null) {
+            return ResponseEntity.ok(
+                    asterixCharacterRepository.findByNameLike(name)
+            );
+        }
+
+        return ResponseEntity.ok(
+                asterixCharacterRepository.findByNameLikeAndAgeIsLessThanEqual(name, maxAge)
+        );
     }
+
 
     public ResponseEntity<AsterixCharacterRecord> getCharacter(String id) {
         return ResponseEntity.ok(asterixCharacterRepository

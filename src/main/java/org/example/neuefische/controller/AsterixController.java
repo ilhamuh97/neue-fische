@@ -20,8 +20,11 @@ public class AsterixController {
     }
 
     @GetMapping("/characters")
-    public ResponseEntity<List<AsterixCharacterRecord>> getCharacters(@RequestParam(required = false) String name) {
-        return asterixCharacterService.getCharacters(name);
+    public ResponseEntity<List<AsterixCharacterRecord>> getCharacters(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Integer maxAge
+    ) {
+        return asterixCharacterService.getCharacters(name, maxAge);
     }
 
     @GetMapping("/character/{id}")

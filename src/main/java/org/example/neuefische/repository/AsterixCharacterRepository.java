@@ -14,4 +14,8 @@ public interface AsterixCharacterRepository extends MongoRepository<AsterixChara
     Optional<AsterixCharacterRecord> findAsterixCharacterRecordById(String id);
 
     List<AsterixCharacterRecord> findByNameLike(String name);
+
+    List<AsterixCharacterRecord> findByAgeIsLessThanEqual(int ageIsLessThan);
+
+    List<AsterixCharacterRecord> findByNameLikeAndAgeIsLessThanEqual(String name, int ageIsLessThan);
 }
