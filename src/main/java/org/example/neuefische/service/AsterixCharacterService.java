@@ -25,22 +25,22 @@ public class AsterixCharacterService {
 
     public ResponseEntity<List<AsterixCharacterRecord>> getCharacters(String name, Integer maxAge) {
         if (name == null && maxAge == null) {
-            return ResponseEntity.ok(asterixCharacterRepository.findAll());
+            return ResponseEntity.ok().body(asterixCharacterRepository.findAll());
         }
 
         if (name == null) {
-            return ResponseEntity.ok(
+            return ResponseEntity.ok().body(
                     asterixCharacterRepository.findByAgeIsLessThanEqual(maxAge)
             );
         }
 
         if (maxAge == null) {
-            return ResponseEntity.ok(
+            return ResponseEntity.ok().body(
                     asterixCharacterRepository.findByNameLike(name)
             );
         }
 
-        return ResponseEntity.ok(
+        return ResponseEntity.ok().body(
                 asterixCharacterRepository.findByNameLikeAndAgeIsLessThanEqual(name, maxAge)
         );
     }
