@@ -4,6 +4,10 @@ import org.example.neuefische.dto.InputAsterixCharacterDTO;
 import org.example.neuefische.model.AsterixCharacterRecord;
 import org.example.neuefische.repository.AsterixCharacterRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,18 +15,20 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class AsterixCharacterServiceTest {
     private final String ID_123 = "123";
     private final String NAME_JOHN = "John";
     private final String PROFESSION_TEACHER = "Teacher";
     private final int AGE_20 = 20;
-    private final AsterixCharacterRepository asterixCharacterRepository = mock(AsterixCharacterRepository.class);
-    private final IdService idService = mock(IdService.class);
+
+    @Mock AsterixCharacterRepository asterixCharacterRepository;
+    @Mock IdService idService;
+    @InjectMocks AsterixCharacterService asterixCharacterService;
 
     @Test
     void getCharacters_shouldReturnStudent_whenCalledWithNameAndAge() {
         // GIVEN
-        AsterixCharacterService asterixCharacterService = new AsterixCharacterService(idService, asterixCharacterRepository);
         when(asterixCharacterRepository.findByNameLikeAndAgeIsLessThanEqual(NAME_JOHN, AGE_20)).thenReturn(List.of());
 
         // WHEN
@@ -30,13 +36,13 @@ class AsterixCharacterServiceTest {
 
         // THEN
         assertEquals(asterixCharacters, List.of());
-        verify(asterixCharacterRepository).findByNameLikeAndAgeIsLessThanEqual(NAME_JOHN, AGE_20);
+        verify(asterixCharacterRepository, times(1)).findByNameLikeAndAgeIsLessThanEqual(NAME_JOHN, AGE_20);
+        verifyNoMoreInteractions(asterixCharacterRepository);
     }
 
     @Test
     void getCharacters_shouldReturnStudent_whenCalledWithName() {
         // GIVEN
-        AsterixCharacterService asterixCharacterService = new AsterixCharacterService(idService, asterixCharacterRepository);
         when(asterixCharacterRepository.findByNameLike(NAME_JOHN)).thenReturn(List.of());
 
         // WHEN
@@ -44,13 +50,13 @@ class AsterixCharacterServiceTest {
 
         // THEN
         assertEquals(asterixCharacters, List.of());
-        verify(asterixCharacterRepository).findByNameLike(NAME_JOHN);
+        verify(asterixCharacterRepository, times(1)).findByNameLike(NAME_JOHN);
+        verifyNoMoreInteractions(asterixCharacterRepository);
     }
 
     @Test
     void getCharacters_shouldReturnStudent_whenCalledWithAge() {
         // GIVEN
-        AsterixCharacterService asterixCharacterService = new AsterixCharacterService(idService, asterixCharacterRepository);
         when(asterixCharacterRepository.findByAgeIsLessThanEqual(AGE_20)).thenReturn(List.of());
 
         // WHEN
@@ -58,13 +64,13 @@ class AsterixCharacterServiceTest {
 
         // THEN
         assertEquals(asterixCharacters, List.of());
-        verify(asterixCharacterRepository).findByAgeIsLessThanEqual(AGE_20);
+        verify(asterixCharacterRepository, times(1)).findByAgeIsLessThanEqual(AGE_20);
+        verifyNoMoreInteractions(asterixCharacterRepository);
     }
 
     @Test
     void getCharacters_shouldReturnStudent_whenCalledWithoutNameAndAge() {
         // GIVEN
-        AsterixCharacterService asterixCharacterService = new AsterixCharacterService(idService, asterixCharacterRepository);
         when(asterixCharacterRepository.findAll()).thenReturn(List.of());
 
         // WHEN
@@ -72,7 +78,8 @@ class AsterixCharacterServiceTest {
 
         // THEN
         assertEquals(asterixCharacters, List.of());
-        verify(asterixCharacterRepository).findAll();
+        verify(asterixCharacterRepository, times(1)).findAll();
+        verifyNoMoreInteractions(asterixCharacterRepository);
     }
 
     @Test
@@ -84,8 +91,6 @@ class AsterixCharacterServiceTest {
                 .name(NAME_JOHN)
                 .profession(PROFESSION_TEACHER)
                 .build();
-
-        AsterixCharacterService asterixCharacterService = new AsterixCharacterService(idService, asterixCharacterRepository);
         Optional<AsterixCharacterRecord> response = Optional.of(asterixCharacterRecordExpected);
         when(asterixCharacterRepository.findAsterixCharacterRecordById(ID_123)).thenReturn(response);
 
@@ -94,16 +99,16 @@ class AsterixCharacterServiceTest {
 
         // THEN
         assertEquals(asterixCharacterRecordExpected, asterixCharacterRecord);
-        verify(asterixCharacterRepository).findAsterixCharacterRecordById(ID_123);
+        verify(asterixCharacterRepository, times(1)).findAsterixCharacterRecordById(ID_123);
+        verifyNoMoreInteractions(asterixCharacterRepository);
     }
 
     @Test
-    void update() {
+    void update_shouldReturnCharacter_whenCalledWithValidData() {
         // GIVEN
         final String  NEW_NAME_ALEX = "Alex";
         final int NEW_AGE_21 = 21;
         final String NEW_PROFESSION_BUTCHER = "Butcher";
-        AsterixCharacterService asterixCharacterService = new AsterixCharacterService(idService, asterixCharacterRepository);
         AsterixCharacterRecord asterixCharacterRecordFound = AsterixCharacterRecord.builder()
                 .id(ID_123)
                 .name(NAME_JOHN)
@@ -128,15 +133,15 @@ class AsterixCharacterServiceTest {
 
         // THEN
         assertEquals(asterixCharacterExpected, asterixCharacterRecordActual);
-        verify(asterixCharacterRepository).findAsterixCharacterRecordById(ID_123);
-        verify(asterixCharacterRepository).save(asterixCharacterExpected);
+        verify(asterixCharacterRepository, times(1)).findAsterixCharacterRecordById(ID_123);
+        verify(asterixCharacterRepository, times(1)).save(asterixCharacterExpected);
+        verifyNoMoreInteractions(asterixCharacterRepository);
     }
 
     @Test
-    void deleteCharacter() {
+    void deleteCharacter_shouldReturnSuccessMessage_whenCalledWithValidID() {
         // GIVEN
         String expectedResponseMessage = "Character with ID: " + ID_123 + " is deleted successfully";
-        AsterixCharacterService asterixCharacterService = new AsterixCharacterService(idService, asterixCharacterRepository);
         AsterixCharacterRecord asterixCharacterRecordFound = AsterixCharacterRecord.builder()
                 .id(ID_123)
                 .name(NAME_JOHN)
@@ -151,15 +156,15 @@ class AsterixCharacterServiceTest {
 
         // THEN
         assertEquals(expectedResponseMessage, responseMessage);
-        verify(asterixCharacterRepository).findAsterixCharacterRecordById(ID_123);
-        verify(asterixCharacterRepository).deleteById(ID_123);
+        verify(asterixCharacterRepository, times(1)).findAsterixCharacterRecordById(ID_123);
+        verify(asterixCharacterRepository, times(1)).deleteById(ID_123);
+        verifyNoMoreInteractions(asterixCharacterRepository);
     }
 
     @Test
-    void save() {
+    void save_shouldReturnCharacter_whenCalledWithValidDAta() {
         // GIVEN
         final String NEW_ID_1234 = "1234";
-        AsterixCharacterService asterixCharacterService = new AsterixCharacterService(idService, asterixCharacterRepository);
         InputAsterixCharacterDTO asterixCharacterInputDTO = InputAsterixCharacterDTO.builder()
                 .name(NAME_JOHN)
                 .age(AGE_20)
@@ -173,12 +178,14 @@ class AsterixCharacterServiceTest {
                 .build();
         when(idService.randomId()).thenReturn(NEW_ID_1234);
         when(asterixCharacterRepository.save(asterixCharacterExpected)).thenReturn(asterixCharacterExpected);
+        verifyNoMoreInteractions(asterixCharacterRepository);
 
         // WHEN
         AsterixCharacterRecord asterixCharacterRecord = asterixCharacterService.save(asterixCharacterInputDTO);
 
         // THEN
         assertEquals(asterixCharacterExpected, asterixCharacterRecord);
-        verify(asterixCharacterRepository).save(asterixCharacterExpected.withAge(20));
+        verify(asterixCharacterRepository, times(1)).save(asterixCharacterExpected.withAge(20));
+        verifyNoMoreInteractions(asterixCharacterRepository);
     }
 }
