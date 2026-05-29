@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -30,10 +31,7 @@ public class RickAndMortyService {
                 .retrieve()
                 .body(CharactersRecord.class);
 
-        assert charactersRecord != null;
-
-        System.out.println(charactersRecord.info());
-        return charactersRecord.results();
+        return Objects.requireNonNull(charactersRecord).results();
     }
 
     public CharacterRecord getRickAndMortyCharacterById(String id) {
@@ -56,9 +54,7 @@ public class RickAndMortyService {
                 .retrieve()
                 .body(CharactersRecord.class);
 
-        assert charactersRecord != null;
 
-        System.out.println(charactersRecord.info());
-        return charactersRecord.info().count();
+        return Objects.requireNonNull(charactersRecord).info().count();
     }
 }
