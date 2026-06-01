@@ -5,15 +5,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
-import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import tools.jackson.databind.ObjectMapper;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -45,7 +42,7 @@ class CarControllerTest {
                     );
 
                     System.out.println(errorMessage);
-                    assert errorMessage.message().equals("Only 'porsche' allowed");
+                    assert errorMessage.errorMessage().equals("Only 'porsche' allowed");
                 });
     }
 
@@ -60,7 +57,7 @@ class CarControllerTest {
                     );
 
                     System.out.println(errorMessage);
-                    assert errorMessage.message().equals("No Cars found");
+                    assert errorMessage.errorMessage().equals("No Cars found");
                 });
     }
 }

@@ -9,7 +9,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import tools.jackson.databind.ObjectMapper;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -43,7 +42,7 @@ class AnimalControllerTest {
                     );
 
                     System.out.println(errorMessage);
-                    assert errorMessage.message().equals("Only 'dog' is allowed");
+                    assert errorMessage.errorMessage().equals("Only 'dog' is allowed");
                 });
     }
 
@@ -58,7 +57,7 @@ class AnimalControllerTest {
                     );
 
                     System.out.println(errorMessage);
-                    assert errorMessage.message().equals("No Animals found");
+                    assert errorMessage.errorMessage().equals("No Animals found");
                 });
     }
 

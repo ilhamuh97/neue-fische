@@ -3,7 +3,9 @@ package de.neuefische.springexceptionhandlingtask;
 import de.neuefische.springexceptionhandlingtask.records.ErrorMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
+import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -25,11 +27,13 @@ public class AnimalController {
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_GATEWAY)
-    public ErrorMessage handleRuntimeException(IllegalArgumentException e) {
+    public ErrorMessage handleRuntimeException(IllegalArgumentException e, WebRequest request) {
         return  ErrorMessage
                 .builder()
+                .apiPath(request.getDescription(false))
                 .httpStatus(HttpStatus.BAD_GATEWAY)
-                .message(e.getMessage())
+                .errorMessage(e.getMessage())
+                .errorTime(LocalDateTime.now())
                 .build();
     }
 }
